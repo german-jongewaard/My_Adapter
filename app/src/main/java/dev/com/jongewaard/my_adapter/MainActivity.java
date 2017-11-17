@@ -49,10 +49,8 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new MyAdapter(names, R.layout.recycler_view_item, new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(String name, int position) {
-
                 //Toast.makeText(MainActivity.this, name + " - " + position, Toast.LENGTH_LONG).show();
                 deleteName(position);
-
             }
         });
 
@@ -96,10 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 add("Niñow");
 
             }};
-
     }
 
-    private void addName(int  position) {
+    private void addName(int position) {
 
         names.add(position, "New name " + (++counter));
         // Notificamos de un nuevo item insertado en nuestra colección
@@ -113,10 +110,5 @@ public class MainActivity extends AppCompatActivity {
         names.remove(position);
         // Notificamos de un item borrado en nuestra colección
         mAdapter.notifyItemRemoved(position);
-
-
-
-
     }
-
 }
