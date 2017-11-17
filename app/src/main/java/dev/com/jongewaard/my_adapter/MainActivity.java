@@ -38,22 +38,24 @@ public class MainActivity extends AppCompatActivity {
 
         mLayoutManager = new LinearLayoutManager(this);
 
-        //tambien el adaptador
+        // Implementamos nuestro OnItemClickListener propio, sobreescribiendo el método que nosotros
+        // definimos en el adaptador, y recibiendo los parámetros que necesitamos
         mAdapter = new MyAdapter(names, R.layout.recycler_view_item, new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(String name, int position) {
 
-                Toast.makeText(MainActivity.this, name + " - " + position, Toast.LENGTH_LONG).show();
-
+                //Toast.makeText(MainActivity.this, name + " - " + position, Toast.LENGTH_LONG).show();
+                deleteName(position);
             }
         });
 
+        // Lo usamos en caso de que sepamos que el layout no va a cambiar de tamaño, mejorando la performance
         mRecyclerView.setHasFixedSize(true);
+        // Añade un efecto por defecto, si le pasamos null lo desactivamos por completo
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-
+        // Enlazamos el layout manager y adaptor directamente al recycler view
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -92,14 +94,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void addName(int  position) {
 
-        names.add(position, "New name" + (counter++));
+        names.add(position, "New name " + (++counter));
+        // Notificamos de un nuevo item insertado en nuestra colección
         mAdapter.notifyItemInserted(position);
+        // Hacemos scroll hacia lo posición donde el nuevo elemento se aloja
+        mLayoutManager.scrollToPosition(position);
     }
 
     private void deleteName(int position){
 
         names.remove(position);
+        // Notificamos de un item borrado en nuestra colección
         mAdapter.notifyItemRemoved(position);
+
+
 
 
     }
