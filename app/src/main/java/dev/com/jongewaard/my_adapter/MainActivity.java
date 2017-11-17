@@ -3,8 +3,10 @@ package dev.com.jongewaard.my_adapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
         mLayoutManager = new LinearLayoutManager(this);
 
+        mLayoutManager = new GridLayoutManager(this, 2);
+
+        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+
         // Implementamos nuestro OnItemClickListener propio, sobreescribiendo el método que nosotros
         // definimos en el adaptador, y recibiendo los parámetros que necesitamos
         mAdapter = new MyAdapter(names, R.layout.recycler_view_item, new MyAdapter.OnItemClickListener() {
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //Toast.makeText(MainActivity.this, name + " - " + position, Toast.LENGTH_LONG).show();
                 deleteName(position);
+
             }
         });
 
