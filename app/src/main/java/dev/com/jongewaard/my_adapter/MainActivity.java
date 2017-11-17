@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView.LayoutManager mLayoutManager;
 
+    private int counter = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,14 +67,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.add_name:
-
+                this.addName(0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
 
     private List<String> getAllNames(){
             return new ArrayList<String>(){{
@@ -87,6 +87,20 @@ public class MainActivity extends AppCompatActivity {
                 add("Niñow");
 
             }};
+
+    }
+
+    private void addName(int  position) {
+
+        names.add(position, "New name" + (counter++));
+        mAdapter.notifyItemInserted(position);
+    }
+
+    private void deleteName(int position){
+
+        names.remove(position);
+        mAdapter.notifyItemRemoved(position);
+
 
     }
 
